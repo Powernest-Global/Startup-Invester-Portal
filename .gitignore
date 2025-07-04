@@ -1,1 +1,18 @@
-./node_modules
+# Node modules
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# dotenv environment files
+.env
+
+# Optional: OS-specific junk
+.DS_Store
+Thumbs.db
+
+# Optional: build artifacts (for frontend if using CRA)
+build/
+dist/
