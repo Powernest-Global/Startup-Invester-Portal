@@ -3,8 +3,10 @@ import React, { useEffect, useState } from 'react';
 function App() {
   const [helloMessage, setHelloMessage] = useState('Loading...');
 
+  const apiUrl = process.env.REACT_APP_API_URL || '';
+
   useEffect(() => {
-    fetch('/api/hello')  // ✅ Now relative path, works with Nginx proxy
+    fetch(`${apiUrl}/api/hello`)  // ✅ Now relative path, works with Nginx proxy
       .then(res => res.json())
       .then(data => setHelloMessage(data.message))
       .catch(err => {

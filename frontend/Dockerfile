@@ -3,6 +3,9 @@ FROM node:18 AS builder
 
 WORKDIR /app
 COPY . .
+
+COPY .env.docker .env
+
 RUN npm install && npm run build
 
 # Step 2: Serve with Nginx
