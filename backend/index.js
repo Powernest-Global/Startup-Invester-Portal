@@ -3,7 +3,6 @@ const { Pool } = require('pg');
 const app = express();
 const port = 5000;
 
-// PostgreSQL connection pool
 const pool = new Pool({
   user: process.env.PGUSER,
   host: process.env.PGHOST,
@@ -12,15 +11,13 @@ const pool = new Pool({
   port: process.env.PGPORT,
 });
 
-// Simple "hello" route
 app.get('/api/hello', (req, res) => {
   res.json({ message: 'Hello from backend!' });
 });
 
-// Route to fetch all data from a sample table (e.g., "items")
 app.get('/api/data', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM items'); // <-- make sure "items" table exists
+    const result = await pool.query('SELECT * FROM test_table'); 
     res.json(result.rows);
   } catch (error) {
     console.error('Error querying database:', error);
