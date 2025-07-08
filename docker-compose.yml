@@ -1,10 +1,9 @@
-version: '3.8'
 
 services:
   frontend:
     build: ./frontend
     ports:
-      - "3000:3000"
+      - "3000:80"
     depends_on:
       - backend
 
@@ -15,13 +14,13 @@ services:
     environment:
       - PGUSER=admin
       - PGPASSWORD=admin
-      - PGHOST=db
+      - PGHOST=pg        
       - PGPORT=5432
       - PGDATABASE=mydb
     depends_on:
-      - db
+      - pg
 
-  db:
+  pg:
     image: postgres:15
     environment:
       POSTGRES_USER: admin
