@@ -1,10 +1,10 @@
 import React from 'react';
 
 const LinkedInAuth = () => {
-  const BACKEND_URL = 'http://localhost:5000';
+  const apiUrl = process.env.REACT_APP_API_URL || '';
 
   const handleLogin = () => {
-    window.location.href = `${BACKEND_URL}/auth/linkedin`;  //here you can add your backend Api
+    window.location.href = `${apiUrl}/auth/linkedin`;  //here you can add your backend Api
   };
 
   return (
@@ -13,7 +13,7 @@ const LinkedInAuth = () => {
       className="flex items-center justify-center bg-[#070707] px-6 py-3 gap-2 w-[196px] h-[50px] border-2 border-[#1A1A1A] rounded-[12px]"
     >
       <img
-        src="/linkedin-logo.jpg"
+        src="/linkedin-logo.jpg"  // you can change logo and add the new one if you want
         alt="LinkedIn"
         className="w-[26px] h-[26px]"
       />
