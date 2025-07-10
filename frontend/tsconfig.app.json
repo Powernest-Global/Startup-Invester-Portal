@@ -20,5 +20,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "frontend/src/components"]
+  "include": ["src", "frontend/src/components", "src/declarations.d.ts"]
 }
