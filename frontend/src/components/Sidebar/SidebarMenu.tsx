@@ -1,5 +1,6 @@
-// src/components/Sidebar.jsx
+// src/components/Sidebar/Sidebar.jsx
 import React, { useState } from 'react';
+
 import {
   MdDashboard,
   MdOutlineInsights, // For Analytics
@@ -8,9 +9,13 @@ import {
 } from 'react-icons/md'; // Assuming you have react-icons installed
 import { FaRobot, FaHandshake, FaFileAlt } from 'react-icons/fa'; // More icons
 import ConnectNowCard from './ConnectNowCard';
-const SidebarMenu = () => {
-  const [activeTab, setActiveTab] = useState('Founder'); // 'Founder' or 'Investor'
-  const [activeLink, setActiveLink] = useState('Dashboard'); // Controls active navigation link
+// const SidebarMenu = () => {
+    const SidebarMenu = ({ activeLink, setActiveLink }) => {
+
+
+   const [activeTab, setActiveTab] = useState('Founder'); // 'Founder' or 'Investor'
+  
+  // const [activeLink, setActiveLink] = useState('Dashboard'); // Controls active navigation link
 
   const founderNavItems = [
     { name: 'Dashboard', icon: <MdDashboard size={20} /> },
@@ -25,17 +30,19 @@ const SidebarMenu = () => {
   // You can define investor-specific items if they differ
   const investorNavItems = [
     { name: 'Dashboard', icon: <MdDashboard size={20} /> },
-    { name: 'My Investments', icon: <FaHandshake size={20} /> },
-    { name: 'Portfolio', icon: <FaFileAlt size={20} /> },
-    { name: 'Upcoming Meetings', icon: <MdOutlineCalendarMonth size={20} /> },
-    { name: 'Market Insights', icon: <MdOutlineInsights size={20} /> },
+    { name: 'Browse Startups', icon: <MdDashboard size={20} /> },
+    { name: 'Deal Room', icon: <FaHandshake size={20} /> },
+    { name: 'Connect', icon: <MdDashboard size={20} /> },
+    { name: 'Capital', icon: <MdOutlineWorkOutline size={20} /> },
+    { name: 'Portfolio', icon: <MdOutlineInsights size={20} /> },
   ];
 
-  const navItems = activeTab === 'Founder' ? founderNavItems : investorNavItems;
+   const navItems = activeTab === 'Founder' ? founderNavItems : investorNavItems;
 
   return (
     <div className="w-64  text-white h-screen flex flex-col p-4 ml-2 shadow-xl"
      style={{
+     
         borderRight: '1px solid var(--stroke-color)',
         
       }}

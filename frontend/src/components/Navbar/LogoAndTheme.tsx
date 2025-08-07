@@ -1,10 +1,17 @@
+//src/components/Navbar/LogoAndTheme.tsx
 import React, { useEffect, useState } from 'react';
 import logo from '../../assets/logo.svg';
 import { RiFlipHorizontalFill } from "react-icons/ri";
 
-const LogoAndTheme = () => {
-  const [theme, setTheme] = useState('dark');
 
+type Props = {
+  onToggleSidebar: () => void;
+};
+
+// const LogoAndTheme = () => {
+ 
+const LogoAndTheme = ({ onToggleSidebar }: Props) => {
+ const [theme, setTheme] = useState('dark');
   useEffect(() => {
     const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     const savedTheme = localStorage.getItem('theme') || systemTheme;
@@ -21,7 +28,7 @@ const LogoAndTheme = () => {
 
   return (
     <div
-      className="flex items-center justify-between h-16  w-64 border-r border-b"
+      className="flex items-center justify-between h-16  w-64 border-r border-b px-4"
       style={{
         borderRight: '1px solid var(--stroke-color)',
         borderBottom: '1px solid var(--stroke-color)',
@@ -37,6 +44,14 @@ const LogoAndTheme = () => {
         style={{ maxWidth: '160px' }} // Optional control
       />
 
+{/* Sidebar Toggle */}
+      <button
+        onClick={onToggleSidebar}
+        className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+        title="Toggle Sidebar"
+      >
+          {/* <RiFlipHorizontalFill className="text-2xl text-white dark:text-white" /> */}
+      </button>
       {/* Theme Toggle */}
       <button
         onClick={toggleTheme}
@@ -50,3 +65,4 @@ const LogoAndTheme = () => {
 };
 
 export default LogoAndTheme;
+

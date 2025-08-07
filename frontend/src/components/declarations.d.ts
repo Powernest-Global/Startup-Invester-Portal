@@ -20,3 +20,8 @@ declare module './Sections' {
   const Sections: React.FC<any>;
   export default Sections;
 }
+// image.dts
+declare module '*.png' {
+  const value: string;
+  export default value;
+}

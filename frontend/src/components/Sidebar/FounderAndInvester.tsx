@@ -1,3 +1,4 @@
+//src/components/Sidebar//FounderAndInvester.tsx
 import React, { useState } from 'react'
 
 const FounderAndInvester = () => {
@@ -38,4 +39,4 @@ const FounderAndInvester = () => {
   )
 }
 
-export default FounderAndInvester
+export default FounderAndInvester;

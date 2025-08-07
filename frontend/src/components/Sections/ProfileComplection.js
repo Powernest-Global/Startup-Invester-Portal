@@ -13,12 +13,11 @@ const ProfileCompletion = ({ percentage = 50, stats = {} }) => {
               className="text-sm font-sm dark:text-white"
               style={{ color: 'var(--subtext-color)' }}
             >
-              Profile Completion
-            </p>
+             </p>
           </div>
           <div className="flex justify-between items-center mb-2">
-            <span className="text-2xl font-large text-white">{percentage}%</span>
-            <span className="text-sm font-md text-white">Complete the assessment</span>
+            <span className="text-2xl font-large text-white">Fund Raised</span>
+            <span className="text-sm font-md text-white">$25M / $100M</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
           <div
@@ -73,3 +72,5 @@ const ProfileCompletion = ({ percentage = 50, stats = {} }) => {
 };
 
 export default ProfileCompletion;
+
+

@@ -1,4 +1,4 @@
-// src/components/JobHiringSection.jsx
+// src/components/Sections/JobHiringSection.jsx
 import React, { useState, useEffect } from 'react';
 
 const JobHiring = () => {

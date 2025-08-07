@@ -1,4 +1,4 @@
-// src/components/Navbar.jsx
+// src/components/Navbar/Navbar.jsx
 import {
  
   RiSettings3Line,
@@ -9,7 +9,9 @@ import { HiOutlineBellAlert } from "react-icons/hi2";
 import profilePic from '../../assets/profilePic.png';
 import LogoAndTheme from './LogoAndTheme';
 
-export default function Navbar({ onToggleTheme }) {
+// export default function Navbar({ onToggleTheme }) {
+  
+export default function Navbar({ onToggleSidebar }) {
   return (
     <header
   className="fixed top-0 left-0 right-0 h-16 border-b flex items-center justify-between px-4 z-10"
@@ -19,9 +21,11 @@ export default function Navbar({ onToggleTheme }) {
     borderColor: 'var(--stroke-color)',
   }}
 >
+   
       {/* Left: Logo and Theme Toggle */}
       <div className="flex items-center gap-4">
-        <LogoAndTheme />
+        {/* <LogoAndTheme /> */}
+        <LogoAndTheme onToggleSidebar={onToggleSidebar} />
       </div>
           
         {/* Profile */}

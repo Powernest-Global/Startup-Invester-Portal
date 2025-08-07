@@ -1,3 +1,4 @@
+//src/components/Sidebar/ConnectNowCard.tsx
 import React from 'react';
 import AI_AgentPic from '../../assets/AI_AgentPic.png'; // update if needed
 

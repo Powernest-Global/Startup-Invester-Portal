@@ -1,7 +1,7 @@
-import React from 'react'
-import ProfileCompletion from './ProfileComplection'
-import TaskCalendar from './TaskCalendar'
-import JobHiring from './JobHiring'
+import React from 'react';
+import ProfileCompletion from './ProfileComplection';
+import TaskCalendar from './TaskCalendar';
+import JobHiring from './JobHiring';
 const index = () => {
   return (
     <>

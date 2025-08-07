@@ -32,7 +32,7 @@ const MyMatches = () => {
                 <input
                   type="text"
                   value={searchTerm}
-                  onC          hange={(e) => setSearchTerm(e.target.value)}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Search..."
                   className="w-full px-3 py-1.5 pl-9 rounded-md bg-[#1a1a2e] border border-[#333] text-sm text-white focus:outline-none"
                 />
@@ -40,7 +40,7 @@ const MyMatches = () => {
               </div>
 
               {/* Filter */}
-              <select
+              {/* <select
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
                 className="px-3 py-1.5 rounded-md bg-[#1a1a2e] border border-[#333] text-sm text-white focus:outline-none w-full sm:w-32"
@@ -48,7 +48,8 @@ const MyMatches = () => {
                 <option value="all">Filter</option>
                 <option value="active">Active</option>
                 <option value="pending">Pending</option>
-              </select>
+              </select> */}
+              view all 
             </div>
           </div>
 
@@ -71,12 +72,17 @@ const MyMatches = () => {
          </div>
 
           {/* Middle: Status */}
-         <div className="flex justify-between items-start mt-4 text-sm">
-  {/* Left: Match Status */}
-  <div className="text-gray-400 capitalize">
-    <p className="font-medium">Match Status</p>
-    <p className="text-white font-semibold">{match.status}</p>
+         <div className=" flex justify-between items-start mt-4 text-sm">
+  {/* Left: Match Status + Button */}
+  <div className="text-left text-gray-400 capitalize flex flex-col items-start ">
+    <p className="font-medium leading-tight">Match Status</p>
+    <p className="text-white font-semibold ">{match.status}</p>
+
+    <button className="mt-8 text-sm bg-[#3262FF] hover:bg-[#0C0D17] border border-[#333] px-4 py-1.5 rounded-md text-white">
+      Request Intro
+    </button>
   </div>
+ 
 
   {/* Right: Sector Match */}
   <div className="text-right text-gray-400 capitalize">
@@ -89,13 +95,8 @@ const MyMatches = () => {
 
         
 
-        {/* Bottom: Request Intro */}
-        <div className="pt-4">
-          <button className="text-sm bg-[#102361] hover:bg-[#0C0D17] border border-[#333] px-4 py-1.5 rounded-md text-white">
-            Request Intro
-          </button>
-        </div>
       </div>
+      
     ))
   ) : (
     <p className="text-gray-400 col-span-full text-sm">No matches found.</p>

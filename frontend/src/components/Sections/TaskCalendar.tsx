@@ -1,4 +1,4 @@
-// src/components/TaskCalendar.jsx
+// src/components/sections/TaskCalendar.jsx
 import React, { useState, useEffect } from 'react';
 import {
   format,
@@ -39,7 +39,10 @@ const TaskCalendar = () => {
   ];
 
   const daysOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-
+const months = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'
+];
   // Helper function to check if a date is in the selectedDates array
   const isDateSelected = (date) => {
     return selectedDates.some(selected => isSameDay(selected, date));
@@ -75,7 +78,7 @@ const TaskCalendar = () => {
           <div
             key={cloneDay.toISOString()} // Use ISO string for unique key
             className={`
-              relative w-10 h-10 flex items-center justify-center rounded-full cursor-pointer transition-all duration-200 ease-in-out
+              relative w-7 h-7 flex items-center justify-center rounded-full cursor-pointer transition-all duration-200 ease-in-out
               ${
                 !isSameMonth(cloneDay, currentMonth)
                   ? 'opacity-30 text-gray-400' // Dates from previous/next month
@@ -88,14 +91,14 @@ const TaskCalendar = () => {
           >
             {formattedDate}
             {hasTask && (
-              <span className="absolute bottom-1 right-1 w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+              <span className="absolute bottom-0.5 right-0.5 w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
             )}
           </div>
         );
         day = addDays(day, 1);
       }
       rows.push(
-        <div className="grid grid-cols-7 gap-4 mb-2" key={day.toISOString()}>
+        <div className="grid grid-cols-7 gap-2 mb-1" key={day.toISOString()}>
           {days}
         </div>
       );
@@ -126,33 +129,57 @@ const TaskCalendar = () => {
   };
 
   return (
-    <div className="p-6 bg-black text-white min-h-screen font-sans rounded-lg shadow-xl max-w-lg mx-auto my-2"
-      style={{
-     background: 'linear-gradient(to bottom,rgb(0, 0, 0),rgb(11, 15, 90))', // This line applies the gradient
-  }}>
+  
+<div
+  className="w-[348px] h-[425px] rounded-xl p-4 text-white font-sans text-xs"
+  style={{
+    background: 'radial-gradient(77.76% 77.76% at 50% 22.24%, #000000 69.71%, #121882 100%)',
+    marginBottom: '1rem', // add gap before next section
+  }}
+>
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-4 relative">
         <h2 className="text-sm font-semibold">Task Calendar</h2>
-        <div className="flex items-center text-gray-400 relative">
-          {/* Month Navigation */}
-          <button onClick={prevMonth} className="p-1 rounded-full hover:bg-gray-700 mr-2">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path></svg>
-          </button>
-          <span className="text-sm font-medium text-white mr-2">
-            {format(currentMonth, 'MMMM yyyy')} {/* Corrected format for year */}
-          </span>
-          <button onClick={nextMonth} className="p-1 rounded-full hover:bg-gray-700">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
-          </button>
-        </div>
-      </div>
+         
+<div className="relative flex items-center">
+  {/* Month Dropdown */}
+  <select
+    value={currentMonth.getMonth()}
+    onChange={(e) => {
+      const newMonth = parseInt(e.target.value);
+      const updatedDate = new Date(currentMonth);
+      updatedDate.setMonth(newMonth);
+      setCurrentMonth(updatedDate);
+    }}
+    className=" bg-transparent text-[#A9ADB1] text-[13px] font-normal appearance-none  cursor-pointer pr-4"
+    
+  >
+    {months.map((month, index) => (
+      <option key={index} value={index} style={{ backgroundColor: '#0B0F5A', color: '#A9ADB1' }}>
+        {month}
+      </option>
+    ))}
+  </select>
+
+  {/* Custom Arrow */}
+  <span
+    className="absolute right-1 text-[#A9ADB1] text-xs pointer-events-none"
+      
+  >
+    ⌄
+  </span>
+</div>
+
+
+
+      </div> 
 
       {/* Progress Indicators */}
-      <div className="flex justify-around mb-8 border-b border-gray-700 pb-1">
+      <div className="flex justify-around mb-4 border-b border-gray-700 pb-1">
         {progressData.map((item, index) => (
           <div key={index} className="text-center">
             <p
-              className="text-2xl text-white  mb-1"
+              className="text-lg text-white  mb-1"
             //   style={{
             //     background: 'linear-gradient(to right, #007bff, #6a0dad)', // Custom gradient
             //     WebkitBackgroundClip: 'text',
@@ -161,13 +188,13 @@ const TaskCalendar = () => {
             >
               {item.percentage}%
             </p>
-            <p className="text-gray-400 mb-2 text-sm">{item.label}</p>
+            <p className="text-gray-400 mb-2 text-xs">{item.label}</p>
           </div>
         ))}
       </div>
 
       {/* Calendar Grid */}
-      <div className="grid grid-cols-7 gap-4 text-center mb-4">
+      <div className="grid grid-cols-7 gap-2 text-center mb-4">
         {/* Days of Week Header */}
         {daysOfWeek.map((day, index) => (
           <div key={index} className="text-gray-400 font-medium text-sm">
@@ -190,7 +217,7 @@ const TaskCalendar = () => {
               );
 
               return (
-                <li key={selectedDay.toISOString()} className="bg-gray-800 p-3 rounded-md">
+                <li key={selectedDay.toISOString()} className="bg-gray-800 p-2 rounded-md">
                   <strong className="text-blue-400">{format(selectedDay, 'PPP')}</strong>
                   {tasksForDay.length > 0 ? (
                     <ul className="list-disc list-inside ml-2 text-sm text-gray-300">
