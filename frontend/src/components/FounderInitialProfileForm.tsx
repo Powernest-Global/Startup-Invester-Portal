@@ -172,6 +172,8 @@ export default function App() {
   ];
 const [isOnboardingComplete, setIsOnboardingComplete] = useState(false);
 
+
+
   const [formData, setFormData] = useState<FormData>({
     startupName: '',
     wasIncorporated: '',
@@ -217,94 +219,116 @@ const flatSteps = [
   const currentStepIndex = flatSteps.findIndex(step => step.id === currentStepId);
   const [message, setMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
   const [websiteUrlError, setWebsiteUrlError] = useState('');
-  const [newMemberEmail, setNewMemberEmail] = useState('');
+
   const [isSectorDropdownOpen, setIsSectorDropdownOpen] = useState(false);
-  
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>(
+  formData.teamMembers.length > 0
+    ? formData.teamMembers
+
+: [
+    { id: 1, name: '', email: '', role: '', linkedin: '' },
+    { id: 2, name: '', email: '', role: '', linkedin: '' }
+  ]
+);
+const [teamErrors, setTeamErrors] = useState<any>({});
   const onStepClick = (stepId: string) => {
     setCurrentStepId(stepId);
   };
  
-  const handleNext = () => {
-    setMessage(null); // Clear previous messages
-    let isValid = true;
-    switch (currentStepId) {
-      case 'basic-details-sub':
-        // New validation check for the product logo
-        if (!formData.startupName || !formData.wasIncorporated || !formData.startupAddress || !formData.country || !formData.pincode || !formData.productLogoFile) {
-          isValid = false;
-        }
-        if (formData.wasIncorporated === 'yes' && !formData.selectDate) {
-          isValid = false;
-        }
-        if (formData.country === 'Other' && !formData.otherCountry) {
-          isValid = false;
-        }
-        if (formData.sectorPreference.length === 0) {
-          isValid = false;
-        }
-        if (formData.stagePreference === '') {
-          isValid = false;
-        }
-        const urlPattern = /^(https?:\/\/)?([\w\d-]+\.)+[\w]{2,}(\/\S*)?$/i;
-        const websiteUrl = formData.websiteUrl?.trim();
-        if (websiteUrl && !urlPattern.test(websiteUrl)) {
-          setWebsiteUrlError("Please enter a valid website URL (e.g., https://example.com)");
-          isValid = false;
-        } else {
-          setWebsiteUrlError('');
-        }
-        break;
-     
-      case 'startup-details-sub':
-  if (
-    !formData.founderStory ||
-    !formData.productOverview ||
-    !formData.coreTeam ||
-    !formData.founderHistory ||
-    !formData.productStage ||
-    !formData.productFeatures ||
-    !formData.technologyStack|| 
-    !formData.traction ||
-    !formData.userFeedback ||
-    !formData.productDifferentiation ||
-    !formData.marketInsights
+
+
+const handleNext = (newData: Partial<typeof formData> = {}) => {
+  setMessage(null);
+
+  // Merge newData into formData first for validation
+  const updatedFormData = { ...formData, ...newData };
+
+  let isValid = true;
+
+  switch (currentStepId) {
+    case 'basic-details-sub':
+      if (
+        !updatedFormData.startupName ||
+        !updatedFormData.wasIncorporated ||
+        !updatedFormData.startupAddress ||
+        !updatedFormData.country ||
+        !updatedFormData.pincode ||
+        !updatedFormData.productLogoFile
       ) {
-    isValid = false;
+        isValid = false;
+      }
+      if (updatedFormData.wasIncorporated === 'yes' && !updatedFormData.selectDate) {
+        isValid = false;
+      }
+      if (updatedFormData.country === 'Other' && !updatedFormData.otherCountry) {
+        isValid = false;
+      }
+      if (updatedFormData.sectorPreference.length === 0) {
+        isValid = false;
+      }
+      if (updatedFormData.stagePreference === '') {
+        isValid = false;
+      }
+      const urlPattern = /^(https?:\/\/)?([\w\d-]+\.)+[\w]{2,}(\/\S*)?$/i;
+      const websiteUrl = updatedFormData.websiteUrl?.trim();
+      if (websiteUrl && !urlPattern.test(websiteUrl)) {
+        setWebsiteUrlError("Please enter a valid website URL (e.g., https://example.com)");
+        isValid = false;
+      } else {
+        setWebsiteUrlError('');
+      }
+      break;
+
+    case 'startup-details-sub':
+      if (
+        !updatedFormData.founderStory ||
+        !updatedFormData.productOverview ||
+        !updatedFormData.coreTeam ||
+        !updatedFormData.founderHistory ||
+        !updatedFormData.productStage ||
+        !updatedFormData.productFeatures ||
+        !updatedFormData.technologyStack ||
+        !updatedFormData.traction ||
+        !updatedFormData.userFeedback ||
+        !updatedFormData.productDifferentiation ||
+        !updatedFormData.marketInsights
+      ) {
+        isValid = false;
+      }
+      break;
+
+    case 'upload-document':
+      if (updatedFormData.pitchDeckFiles.length === 0) {
+        isValid = false;
+      }
+      break;
+
+    case 'add-team':
+      if (!updatedFormData.teamMembers || updatedFormData.teamMembers.length === 0) {
+        isValid = false;
+      }
+      break;
+
+    default:
+      break;
   }
-  break;
 
-      case 'upload-document':
-        if (formData.pitchDeckFiles.length === 0) {
-          isValid = false;
-        }
-        break;
-        case 'add-team':
-        if(formData.teamMembers.length===0){
-          isValid = false;
-        }
-        break;
-        
-    
-      default:
-        break;
-    }
+  if (!isValid) {
+    setMessage({ text: 'Please fill out all required fields.', type: 'error' });
+    return;
+  }
 
-    if (!isValid) {
-      setMessage({ text: 'Please fill out all required fields.', type: 'error' });
-      return;
-    }
-    // Move to the next step if validation passes
+  // Update formData state with merged data
+  setFormData(updatedFormData);
+
+  // Move to next step
   const currentIndex = flatSteps.findIndex(step => step.id === currentStepId);
   if (currentIndex < flatSteps.length - 1) {
     setCurrentStepId(flatSteps[currentIndex + 1].id);
+  } else {
+    setIsOnboardingComplete(true);
   }
-    else {
-  
-  // Final step is done — move to onboarding founder
-  setIsOnboardingComplete(true);
-}
-    
-  };
+};
 
   const handleBack = () => {
     if (currentStepIndex > 0) {
@@ -315,12 +339,39 @@ const flatSteps = [
 
 
 
-const handleInputChange = (
-  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-) => {
-  const { name, value, type } = e.target; // Destructure `type`
 
-  //  website URL error
+const handleInputChange = (
+  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  memberId?: number
+) => {
+  const { name, value, type } = e.target;
+
+  // --- TEAM MEMBER LOGIC ---
+  if (name.startsWith('teamMember-') && memberId !== undefined) {
+    const fieldName = name.replace('teamMember-', '');
+
+    setTeamMembers(prev =>
+      prev.map(member =>
+        member.id === memberId ? { ...member, [fieldName]: value } : member
+      )
+    );
+
+    if (value) {
+      setTeamErrors((prev: any) => ({
+        ...prev,
+        [memberId]: {
+          ...prev[memberId],
+          [fieldName]: false,
+        },
+      }));
+    }
+
+    return;
+  }
+
+  
+
+  // website URL error
   if (name === 'websiteUrl') {
     setWebsiteUrlError('');
   }
@@ -341,9 +392,10 @@ const handleInputChange = (
           : '',
     }));
 
-    return; // exit early
+    return;
   }
 
+  // Sector preference (checkbox group)
   if (type === 'checkbox') {
     const checkbox = e.target as HTMLInputElement;
     const { checked } = checkbox;
@@ -364,9 +416,11 @@ const handleInputChange = (
       return prev;
     });
   } else {
+    // For all other fields
     setFormData(prev => ({ ...prev, [name]: value }));
   }
 };
+
 
 
   const handleSectorChange = (sector: string) => {
@@ -431,19 +485,73 @@ const handleInputChange = (
     }));
   };
 
-  const handleAddMember = () => {
-    if (newMemberEmail && !formData.teamMembers.includes(newMemberEmail)) {
-      setFormData(prev => ({ ...prev, teamMembers: [...prev.teamMembers, newMemberEmail] }));
-      setNewMemberEmail('');
-    }
-  };
 
-  const handleRemoveMember = (emailToRemove: string) => {
-    setFormData(prev => ({
-      ...prev,
-      teamMembers: prev.teamMembers.filter(email => email !== emailToRemove),
-    }));
-  };
+const handleAddMember = () => {
+  if ( teamMembers.length >= 10) return; //  Limit to 5
+  setTeamMembers(prev => [
+    ...prev,
+    { id: Date.now(), name: '', email: '', role: '', linkedin: '' }
+  ]);
+};
+ 
+//   const handleRemoveMember = (id: number) => {
+//   setTeamMembers(prev => prev.filter(member => member.id !== id));
+//   setTeamErrors((prev: any) => {
+//     const newErrors = { ...prev };
+//     delete newErrors[id];
+//     return newErrors;
+//   });
+// };
+const handleRemoveMember = (id: number) => {
+  setTeamMembers(prev => {
+    if (prev.length <= 2) {
+      alert("At least 2 team members are required.");
+      return prev; // don't remove if minimum reached
+    }
+    return prev.filter(member => member.id !== id);
+  });
+
+  setTeamErrors((prev: any) => {
+    const newErrors = { ...prev };
+    delete newErrors[id];
+    return newErrors;
+  });
+};
+
+const validateTeamForm = () => {
+  const newErrors: any = {};
+  let isValid = true;
+  teamMembers.forEach(member => {
+    const memberErrors: any = {};
+    if (!member.name.trim()) memberErrors.name = true;
+    if (!member.email.trim()) memberErrors.email = true;
+    if (!member.role.trim()) memberErrors.role = true;
+    if (!member.linkedin.trim()) memberErrors.linkedin = true;
+
+    if (Object.keys(memberErrors).length > 0) {
+      newErrors[member.id] = memberErrors;
+      isValid = false;
+    }
+  });
+  setTeamErrors(newErrors);
+  return isValid;
+};
+
+const handleTeamContinue = () => {
+  if (validateTeamForm()) {
+    // Set the teamMembers into formData first
+    setFormData(prev => ({ ...prev, teamMembers }));
+
+    // Delay the transition to the OnboardingFounder page until next render tick
+    setTimeout(() => {
+      setIsOnboardingComplete(true);
+    }, 0);
+  } else {
+    setMessage({ text: 'Please fill out all required fields.', type: 'error' });
+  }
+};
+
+
   const handleFinalSubmit = (e: React.FormEvent) => {
   e.preventDefault();
 
@@ -456,22 +564,6 @@ const handleInputChange = (
 };
 
 
-//   const handleFinalSubmit = (e: React.FormEvent) => {
-//     e.preventDefault();
-//       setCurrentStepId('onboarding-founder');
-//     //  handleNext(); 
-    
-
-//     console.log('Final Data:', formData);
-    
-//     //  the form after submission
-//     setFormData({
-//       startupName: '', wasIncorporated: '', selectDate: '', startupAddress: '', country: '', otherCountry: '',
-//       sectorPreference: [], stagePreference: '', websiteUrl: '', pincode: '', productLogoFile: null, pitchDeckFiles: [],  pitchDeckLink: '', pitchDeckLinkError:'', otherDocuments: [], otherDocLink: '', otherDocLinkError: '',
-// teamMembers: [], founderStory: '',  productOverview: '',coreTeam: '', founderHistory: '' , productStage: '',  productFeatures: '',technologyStack: '', traction: '',userFeedback: '',productDifferentiation: '', marketInsights: ''
-//     });
-//     setCurrentStepId(flatSteps[0].id);
-//   };
 
   const countries = [
     '', 'Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Australia', 'Austria',
@@ -1074,51 +1166,146 @@ const [showOtherDocLinkInput, setShowOtherDocLinkInput] = useState(false);
       )}
     </div>
   );
+  
 
- case 'add-team':
-        return (
-          <div className="animate-fade-in space-y-6">
-            <h2 className="text-xl font-bold text-white text-left">Add Your Team</h2>
-            <p className="text-gray-300">Invite your co-founders and key team members.</p>
-            <div className="flex gap-2">
+case 'add-team':
+  return (
+    <div className="p-8 bg-[#0F101A] rounded-xl shadow-lg w-full max-w-4xl mx-auto animate-fade-in">
+      {/* Page Title */}
+      <h2 className="text-3xl font-bold mb-8 text-white text-left">Add Team Members</h2>
+
+      {/* All Team Member Sections */}
+      <div className="space-y-10">
+        {teamMembers.map((member, index) => (
+          <div
+            key={member.id}
+            className="space-y-6 border-b border-[#303030] pb-8 last:border-b-0"
+          >
+            <div className="flex justify-between items-center">
+              <h3 className="text-xl font-semibold text-gray-100">
+                Team member {index + 1}
+              </h3>
+              {teamMembers.length > 1 && (
+                <button
+                  onClick={() => handleRemoveMember(member.id)}
+                  className="text-red-400 hover:text-red-600 text-sm"
+                >
+                  Remove
+                </button>
+              )}
+            </div>
+
+            {/* Name */}
+            <div>
+              <label className="block text-gray-400 text-sm font-medium mb-2">
+                Name <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                name="teamMember-name"
+                value={member.name}
+                onChange={(e) => handleInputChange(e, member.id)}
+                className={`w-full p-3 rounded-md bg-[#1A1C28] border text-white ${
+                  teamErrors[member.id]?.name
+                    ? 'border-red-500'
+                    : 'border-[#303030]'
+                }`}
+                placeholder="Enter name"
+              />
+            </div>
+
+            {/* Email */}
+            <div>
+              <label className="block text-gray-400 text-sm font-medium mb-2">
+                Email <span className="text-red-500">*</span>
+              </label>
               <input
                 type="email"
-                id="newMemberEmail"
-                name="newMemberEmail"
-                value={newMemberEmail}
-                onChange={(e) => setNewMemberEmail(e.target.value)}
-                className="flex-grow p-3 rounded-md bg-[#1A1C28] border border-[#303030] text-white focus:outline-none focus:ring-2 focus:ring-[#3262FF]"
-                placeholder="e.g., member@example.com"
+                name="teamMember-email"
+                value={member.email}
+                onChange={(e) => handleInputChange(e, member.id)}
+                className={`w-full p-3 rounded-md bg-[#1A1C28] border text-white ${
+                  teamErrors[member.id]?.email
+                    ? 'border-red-500'
+                    : 'border-[#303030]'
+                }`}
+                placeholder="Enter email"
               />
-              <button
-                type="button"
-                onClick={handleAddMember}
-                className="px-4 py-2 bg-[#3262FF] text-white rounded-md hover:bg-[#2852D9] transition-colors"
-              >
-                Add
-              </button>
             </div>
-            
-            {formData.teamMembers.length > 0 && (
-              <ul className="space-y-2">
-                {formData.teamMembers.map((member, index) => (
-                  <li key={index} className="flex justify-between items-center p-3 bg-[#1A1C28] rounded-md border border-[#303030]">
-                    <span className="text-white">{member}</span>
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveMember(member)}
-                      className="text-red-400 hover:text-red-600"
-                    >
-                      <X size={16} />
-                    </button>
-                  </li>
-                ))}
-              </ul>
-             
-            )}
-        
+
+            {/* Role */}
+            <div>
+              <label className="block text-gray-400 text-sm font-medium mb-2">
+                Role <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                name="teamMember-role"
+                value={member.role}
+                onChange={(e) => handleInputChange(e, member.id)}
+                className={`w-full p-3 rounded-md bg-[#1A1C28] border text-white ${
+                  teamErrors[member.id]?.role
+                    ? 'border-red-500'
+                    : 'border-[#303030]'
+                }`}
+                placeholder="e.g., Founder, CTO"
+              />
+            </div>
+
+            {/* LinkedIn */}
+            <div>
+              <label className="block text-gray-400 text-sm font-medium mb-2">
+                LinkedIn <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                name="teamMember-linkedin"
+                value={member.linkedin}
+                onChange={(e) => handleInputChange(e, member.id)}
+                className={`w-full p-3 rounded-md bg-[#1A1C28] border text-white ${
+                  teamErrors[member.id]?.linkedin
+                    ? 'border-red-500'
+                    : 'border-[#303030]'
+                }`}
+                placeholder="Enter LinkedIn profile URL"
+              />
+            </div>
           </div>
-        );
+        ))}
+      </div>
+
+      {/* + Add More Member Button — Centered */}
+      <div className="mt-10 text-center">
+        <button
+          onClick={handleAddMember}
+          type="button"
+          className="px-5 py-2 bg-[#1A1C28] border border-[#303030] text-white rounded-md hover:bg-[#222436]"
+        >
+          + Add more member
+        </button>
+      </div>
+
+      {/* Flow Navigation: Back / Continue */}
+      <div className="flex justify-between mt-12">
+        <button
+          type="button"
+          onClick={handleBack}
+          className="px-6 py-3 bg-transparent text-white rounded-md hover:bg-gray-800"
+        >
+          Back
+        </button>
+        <button
+          type="button"
+          onClick={handleTeamContinue}
+          className="px-8 py-3 bg-[#3262FF] text-white rounded-md hover:bg-[#2852D9]"
+        >
+          Continue
+        </button>
+      </div>
+    </div>
+  );
+
+
       
 
 
@@ -1172,9 +1359,8 @@ const [showOtherDocLinkInput, setShowOtherDocLinkInput] = useState(false);
           )}
 
           {isOnboardingComplete ? <OnboardingFounder /> : renderCurrentForm()}
-
-          {!isOnboardingComplete && (
-            <div className={`flex mt-8 ${currentStepId !== 'basic-details-sub' ? 'justify-between' : 'justify-end'}`}>
+{!isOnboardingComplete && currentStepId !== 'add-team' && (
+  <div className={`flex mt-8 ${currentStepId !== 'basic-details-sub' ? 'justify-between' : 'justify-end'}`}>
               {currentStepId !== 'basic-details-sub' && (
                 <button
                   type="button"

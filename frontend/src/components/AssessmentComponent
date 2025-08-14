@@ -1,0 +1,391 @@
+import React, { useState } from 'react';
+
+import OnboardingImg from '../assets/onboardingimage.png';
+
+// We'll define the AssessmentComponent within this file to avoid import issues
+const AssessmentComponent = ({ userType, onBack }) => {
+  // Content based on user type
+  const assessmentData = {
+    investor: {
+      title: 'Investment Style & Fit Assessment',
+      description: 'Before you begin, please review the instructions. This short assessment will help us tailor the experience to your preferences and goals.'
+    },
+    founder: {
+      title: 'Investor Match Readiness Assessment', 
+      description: 'Before you begin, please review the instructions. This short assessment will help us tailor the experience to your preferences and goals.'
+    }
+  };
+
+  // Fallback to founder if userType is not provided or invalid
+  const currentData = assessmentData[userType] || assessmentData['founder'];
+
+  // Handle case where userType or onBack might be undefined
+  const handleBack = () => {
+    if (onBack && typeof onBack === 'function') {
+      onBack();
+    }
+  };
+
+  const AssessmentIcon = () => (
+    <div className="relative">
+      {/* Clipboard */}
+      <div className="relative">
+        <svg width="120" height="140" viewBox="0 0 120 140" fill="none">
+          {/* Clipboard background */}
+          <rect x="20" y="25" width="80" height="110" rx="8" fill="#E6E6E6" />
+          <rect x="25" y="30" width="70" height="100" rx="4" fill="#FFFFFF" />
+          
+          {/* Clipboard clip */}
+          <rect x="40" y="15" width="40" height="20" rx="4" fill="#B0B0B0" />
+          <rect x="42" y="17" width="36" height="16" rx="2" fill="#D0D0D0" />
+          
+          {/* Checklist items */}
+          <rect x="35" y="45" width="8" height="8" rx="2" fill="#3262FF" />
+          <rect x="47" y="47" width="25" height="4" rx="2" fill="#333333" />
+          
+          <rect x="35" y="60" width="8" height="8" rx="2" fill="#3262FF" />
+          <rect x="47" y="62" width="30" height="4" rx="2" fill="#333333" />
+          
+          <rect x="35" y="75" width="8" height="8" rx="2" fill="#CCCCCC" />
+          <rect x="47" y="77" width="20" height="4" rx="2" fill="#333333" />
+          
+          <rect x="35" y="90" width="8" height="8" rx="2" fill="#CCCCCC" />
+          <rect x="47" y="92" width="28" height="4" rx="2" fill="#333333" />
+          
+          <rect x="35" y="105" width="8" height="8" rx="2" fill="#CCCCCC" />
+          <rect x="47" y="107" width="22" height="4" rx="2" fill="#333333" />
+        </svg>
+      </div>
+      
+      {/* Clock */}
+      <div className="absolute -top-2 -left-2">
+        <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
+          <circle cx="25" cy="25" r="22" fill="#4A90E2" stroke="#FFFFFF" strokeWidth="2" />
+          <circle cx="25" cy="25" r="18" fill="#FFFFFF" />
+          <line x1="25" y1="25" x2="25" y2="15" stroke="#333333" strokeWidth="2" strokeLinecap="round" />
+          <line x1="25" y1="25" x2="32" y2="25" stroke="#333333" strokeWidth="2" strokeLinecap="round" />
+          <circle cx="25" cy="25" r="2" fill="#333333" />
+        </svg>
+      </div>
+      
+      {/* Phone/Device */}
+      <div className="absolute -bottom-2 -right-2">
+        <svg width="40" height="60" viewBox="0 0 40 60" fill="none">
+          <rect x="2" y="2" width="36" height="56" rx="8" fill="#1E3A8A" />
+          <rect x="4" y="8" width="32" height="44" rx="4" fill="#3262FF" />
+          <circle cx="20" cy="56" r="3" fill="#FFFFFF" />
+          <rect x="15" y="4" width="10" height="2" rx="1" fill="#FFFFFF" />
+        </svg>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-[#05060F] text-white flex flex-col items-center justify-center p-4 font-sans">
+      
+      {/* Background visual element */}
+      <div 
+        className="absolute w-[721px] h-[721px] blur-[47px] rounded-full"
+        style={{
+          background: 'radial-gradient(192.32% 112.27% at 50% 100%, #000000 30.77%, #0C0C4A 44.28%, #0606A9 58.97%, #0000FF 75.08%, #9898FF 91.44%)',
+          top: "0",
+          left: "0",
+          transform: "translate(-50%, -50%)"
+        }}
+      />
+
+      <div className="bg-white/5 backdrop-blur-sm border border-[#303030] rounded-xl overflow-hidden p-6 md:p-8 lg:p-12 w-full max-w-6xl mt-16 md:mt-0 relative z-10">
+        
+        {/* Header with logo */}
+        <div className="flex justify-center mb-8">
+          <div className="flex items-center gap-3">
+            {/* Power Nest Logo */}
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="16" fill="#FFFFFF" />
+              <path d="M12 10L20 16L12 22V10Z" fill="#3262FF" />
+            </svg>
+            <h1 className="font-neulis-sans font-semibold text-xl text-white">Power Nest</h1>
+          </div>
+        </div>
+
+        <div className="flex flex-col lg:flex-row items-center gap-12">
+          
+          {/* Left side - Icon */}
+          <div className="flex-shrink-0">
+            <AssessmentIcon />
+          </div>
+
+          {/* Right side - Content */}
+          <div className="flex-1 flex flex-col gap-8">
+            
+            {/* Title */}
+            <h2 className="font-neulis-sans font-semibold text-2xl md:text-3xl text-white">
+              {currentData.title}
+            </h2>
+            
+            {/* Description */}
+            <p className="font-inter text-sm md:text-base text-[#A9ADB1]">
+              {currentData.description}
+            </p>
+
+            {/* Assessment Details */}
+            <div className="flex flex-col gap-6">
+              <h3 className="font-neulis-sans font-semibold text-lg text-[#E6E6E6]">
+                Assessment Details:
+              </h3>
+              
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-[#A9ADB1] rounded-full flex-shrink-0"></div>
+                  <span className="font-inter text-sm text-[#A9ADB1]">Total Questions: 20</span>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-[#A9ADB1] rounded-full flex-shrink-0"></div>
+                  <span className="font-inter text-sm text-[#A9ADB1]">Total Duration: 15 minutes</span>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-[#A9ADB1] rounded-full flex-shrink-0"></div>
+                  <span className="font-inter text-sm text-[#A9ADB1]">Time per Question: You'll see a timer for each question</span>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-[#A9ADB1] rounded-full flex-shrink-0"></div>
+                  <span className="font-inter text-sm text-[#A9ADB1]">Question Type: Multiple choice (single option only)</span>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-[#A9ADB1] rounded-full flex-shrink-0"></div>
+                  <span className="font-inter text-sm text-[#A9ADB1]">Navigation: You cannot go back to previous questions</span>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-[#A9ADB1] rounded-full flex-shrink-0"></div>
+                  <span className="font-inter text-sm text-[#A9ADB1]">Auto-submit: The test will auto-submit if time runs out</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Important Note */}
+            <div className="flex flex-col gap-4">
+              <h3 className="font-neulis-sans font-semibold text-lg text-[#E6E6E6]">
+                Important note:
+              </h3>
+              
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-[#A9ADB1] rounded-full flex-shrink-0"></div>
+                  <span className="font-inter text-sm text-[#A9ADB1]">Ensure you have a stable internet connection.</span>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-[#A9ADB1] rounded-full flex-shrink-0"></div>
+                  <span className="font-inter text-sm text-[#A9ADB1]">Avoid refreshing or closing the page.</span>
+                </div>
+                
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-[#A9ADB1] rounded-full flex-shrink-0"></div>
+                  <span className="font-inter text-sm text-[#A9ADB1]">This test can only be taken once.</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-6 mt-8">
+              <button 
+                onClick={handleBack}
+                className="text-[#E6E6E6] text-base font-inter cursor-pointer transition-colors hover:text-white order-2 sm:order-1"
+              >
+                Back
+              </button>
+              
+              <button className="bg-[#3262FF] text-white px-8 py-3 rounded-xl font-inter text-base font-semibold transition-transform hover:scale-105 order-1 sm:order-2">
+                Start assessment now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const App = () => {
+  const [currentScreen, setCurrentScreen] = useState('onboarding'); // 'onboarding', 'userSelect', 'assessment'
+  const [userType, setUserType] = useState(''); // 'investor' or 'founder'
+
+  const handleTakeAssessment = () => {
+    setCurrentScreen('userSelect');
+  };
+
+  const handleUserTypeSelect = (type) => {
+    setUserType(type);
+    setCurrentScreen('assessment');
+  };
+
+  const handleBackToOnboarding = () => {
+    setCurrentScreen('onboarding');
+    setUserType('');
+  };
+
+  // Show assessment component
+  if (currentScreen === 'assessment') {
+    return <AssessmentComponent userType={userType} onBack={handleBackToOnboarding} />;
+  }
+
+  // Show user type selection
+  if (currentScreen === 'userSelect') {
+    return (
+      <div className="min-h-screen bg-[#05060F] text-white flex flex-col items-center justify-center p-4 font-sans">
+        <div 
+          className="absolute w-[721px] h-[721px] blur-[47px] rounded-full"
+          style={{
+            background: 'radial-gradient(192.32% 112.27% at 50% 100%, #000000 30.77%, #0C0C4A 44.28%, #0606A9 58.97%, #0000FF 75.08%, #9898FF 91.44%)',
+            top: "0",
+            left: "0",
+            transform: "translate(-50%, -50%)"
+          }}
+        />
+
+        <div className="bg-white/5 backdrop-blur-sm border border-[#303030] rounded-xl overflow-hidden p-6 md:p-8 lg:p-12 w-full max-w-4xl mt-16 md:mt-0">
+          <div className="text-center mb-10">
+            <h1 className="font-neulis-sans font-semibold text-2xl md:text-3xl lg:text-4xl leading-tight mb-4">
+              Select Your Role
+            </h1>
+            <p className="font-inter text-sm md:text-base text-[#A9ADB1]">
+              Please select your role to continue with the appropriate assessment
+            </p>
+          </div>
+
+          <div className="flex flex-col md:flex-row gap-6 mb-10">
+            <button
+              onClick={() => handleUserTypeSelect('investor')}
+              className="bg-[#12131A] border border-[#303030] rounded-2xl p-8 hover:border-[#3262FF] transition-colors cursor-pointer"
+            >
+              <h3 className="font-neulis-sans font-semibold text-xl text-[#E6E6E6] mb-4">Investor</h3>
+              <p className="font-inter text-sm text-[#A9ADB1]">
+                Take the Investment Style & Fit Assessment to find startups that match your investment preferences
+              </p>
+            </button>
+
+            <button
+              onClick={() => handleUserTypeSelect('founder')}
+              className="bg-[#12131A] border border-[#303030] rounded-2xl p-8 hover:border-[#3262FF] transition-colors cursor-pointer"
+            >
+              <h3 className="font-neulis-sans font-semibold text-xl text-[#E6E6E6] mb-4">Founder</h3>
+              <p className="font-inter text-sm text-[#A9ADB1]">
+                Take the Investor Match Readiness Assessment to prepare for investor engagement
+              </p>
+            </button>
+          </div>
+
+          <div className="flex justify-center">
+            <button 
+              onClick={() => setCurrentScreen('onboarding')}
+              className="text-[#E6E6E6] text-base md:text-lg font-inter cursor-pointer transition-colors hover:text-white"
+            >
+              Back
+            </button>
+          </div>
+        </div>
+
+        <style>{`
+          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Neulis+Sans:wght@600&display=swap');
+          .font-sans {
+              font-family: 'Inter', sans-serif;
+          }
+          .font-neulis-sans {
+              font-family: 'Neulis Sans', sans-serif;
+          }
+        `}</style>
+      </div>
+    );
+  }
+
+  // Original onboarding screen
+  return (
+    <div className="min-h-screen bg-[#05060F] text-white flex flex-col items-center justify-center p-4 font-sans">
+      
+      <div 
+        className="absolute w-[721px] h-[721px] blur-[47px] rounded-full"
+        style={{
+          background: 'radial-gradient(192.32% 112.27% at 50% 100%, #000000 30.77%, #0C0C4A 44.28%, #0606A9 58.97%, #0000FF 75.08%, #9898FF 91.44%)',
+          top: "0",
+          left: "0",
+          transform: "translate(-50%, -50%)"
+        }}
+      />
+
+      <div className="bg-white/5 backdrop-blur-sm border border-[#303030] rounded-xl overflow-hidden p-6 md:p-8 lg:p-12 w-full max-w-6xl mt-16 md:mt-0">
+        
+        <div className="flex flex-col items-center gap-10 text-center">
+          <h1 className="font-neulis-sans font-semibold text-2xl md:text-3xl lg:text-4xl leading-tight">
+            Onboarding Completed<br />Successfully
+          </h1>
+          <img
+            src={OnboardingImg}
+            alt="OnboardingImg"
+            className="w-40 h-40 md:w-52 md:h-52 rounded-full"
+          />
+        </div>
+
+        <div className="bg-[#12131A] border border-[#303030] rounded-2xl p-6 md:p-10 lg:p-16 mt-16 flex flex-col gap-10">
+          
+          <h2 className="font-neulis-sans font-semibold text-xl md:text-2xl text-center">
+            Next step - Investor Match Readiness Assessment
+          </h2>
+
+          <div className="flex flex-col gap-8">
+            
+            <div className="flex flex-col gap-4">
+              <h3 className="font-neulis-sans font-semibold text-lg md:text-xl text-[#E6E6E6]">
+                Before you begin, here's what you need to know
+              </h3>
+              <p className="font-inter text-sm md:text-base text-[#A9ADB1]">
+                This short 15-minute investor match readiness assessment is designed to help us better understand your preferences, decision-making approach, and goals, so we can deliver a more personalised and meaningful experience for you.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <h3 className="font-neulis-sans font-semibold text-lg md:text-xl text-[#E6E6E6]">
+                Why take this assessment?
+              </h3>
+              <p className="font-inter text-sm md:text-base text-[#A9ADB1]">
+                The Investor Match Readiness Assessment evaluates your start-up's preparation for investor engagement. By analysing your current stage, documentation quality, and strategic clarity, we connect you with investors whose focus and expectations align with your business goals.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6 mt-6 md:mt-10">
+            
+            <button className="text-[#E6E6E6] text-base md:text-lg font-inter cursor-pointer transition-colors hover:text-white">
+              Skip to Dashboard
+            </button>
+
+            <button 
+              onClick={handleTakeAssessment}
+              className="bg-[#3262FF] text-white px-8 py-3 md:px-10 md:py-4 rounded-xl font-inter text-base md:text-lg font-semibold transition-transform hover:scale-105"
+            >
+              Take Assessment
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Neulis+Sans:wght@600&display=swap');
+        .font-sans {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-neulis-sans {
+            font-family: 'Neulis Sans', sans-serif;
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default App;
