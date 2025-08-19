@@ -1,5 +1,5 @@
 
-import React, { useCallback, useState, useRef } from 'react';
+import React, {  useState } from 'react';
 import { useDropzone } from "react-dropzone";
 import { ChevronDown, DollarSign, Check, FileUp } from 'lucide-react';
 
@@ -27,8 +27,7 @@ const OnboardingStepper = ({ steps, currentStep }: { steps: Step[], currentStep:
   const currentStepIndex = steps.findIndex(step => step.id === currentStep);
 
   return (
-    // This div represents 'Frame 39440' (the outer container for the stepper content)
-    // Its styles are applied by the parent div in StartupProfileForm, so this div
+
     // primarily defines the internal flex layout for the stepper circles and titles.
     <div className="flex flex-row items-start p-0 gap-[12px]">
       {/* Left Column: Stepper Circles and Lines ('Stage stepper') */}

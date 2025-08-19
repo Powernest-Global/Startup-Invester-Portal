@@ -1,11 +1,10 @@
 
 import React, { useState } from 'react';
 
-import profileIllustration from '../assets/profileIllustration.png'; // Please ensure this file exists at src/assets/profileIllustration.png
-
+import profileIllustration from '../assets/profileIllustration.png'; 
 interface BasicInfoFormProps {
   onNext: (data?: any) => void;
-  onBack: () => void; // Added onBack prop for consistency, though not directly used in this snippet's buttons
+  onBack: () => void;
 }
 
 const BasicInfoForm: React.FC<BasicInfoFormProps> = ({ onNext, onBack }) => {
@@ -18,14 +17,13 @@ const BasicInfoForm: React.FC<BasicInfoFormProps> = ({ onNext, onBack }) => {
     otherCountry: '', // For when 'Other' is selected in country dropdown
     city: '', // New: City field
     state: '', // New: State field
-    linkedin: '', // Renamed from websiteUrl to linkedin as per user's code
+    linkedin: '', //linkedin as per user's code
   });
 
   const [errors, setErrors] = useState({
     phoneNumber: '',
     linkedin: '', // Error for linkedin URL
   });
-
   // Comprehensive list of countries for the dropdown
   const countries = [
     '', // Default empty option
@@ -106,7 +104,7 @@ const BasicInfoForm: React.FC<BasicInfoFormProps> = ({ onNext, onBack }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#05060F] text-white flex flex-col lg:flex-row font-sans">
+    <div className="min-h-screen bg-[#05060F] text-white flex flex-col lg:flex-row font-neulis-sans">
       {/* Left Side - Illustration and Title */}
       <div className="w-full lg:w-[352px] lg:min-h-screen p-4 lg:p-0 flex flex-col items-center lg:items-start lg:justify-center relative
                     bg-[radial-gradient(195.32%_112.27%_at_50%_100%,_#000000_30.77%,_#0C0C4A_44.28%,_#0606A9_58.97%,_#0000FF_75.08%,_#9898FF_91.44%)]
@@ -131,14 +129,14 @@ const BasicInfoForm: React.FC<BasicInfoFormProps> = ({ onNext, onBack }) => {
 
         <form onSubmit={handleSubmit} className="w-full max-w-[832px] space-y-8">
           {/* Full Name */}
-          <div className="flex flex-col sm:flex-row gap-8 w-full">
+          <div className="flex flex-col sm:flex-row gap-2 w-full">
             <div className="flex-1">
-              <label htmlFor="firstName" className="block text-[#E6E6E6] font-semibold text-sm mb-2">First Name <span className="text-red-500">*</span></label>
+              <label htmlFor="firstName" className="block text-[#E6E6E6] font-semibold  text-sm mb-2">First name <span className="text-red-500">*</span></label>
               <input
                 type="text"
                 id="firstName"
                 name="firstName"
-                placeholder="Enter first name"
+                placeholder="Enter your first name"
                 value={formData.firstName}
                 onChange={handleInputChange}
                 className="w-full h-[48px] px-4 bg-[#1a1a2e] border border-[#303030] rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#3262FF]"
@@ -146,12 +144,12 @@ const BasicInfoForm: React.FC<BasicInfoFormProps> = ({ onNext, onBack }) => {
               />
             </div>
             <div className="flex-1">
-              <label htmlFor="lastName" className="block text-[#E6E6E6] font-semibold text-sm mb-2">Last Name <span className="text-red-500">*</span></label>
+              <label htmlFor="lastName" className="block text-[#E6E6E6] font-semibold text-sm mb-2">Last name <span className="text-red-500">*</span></label>
               <input
                 type="text"
                 id="lastName"
                 name="lastName"
-                placeholder="Enter last name"
+                placeholder="Enter your last name"
                 value={formData.lastName}
                 onChange={handleInputChange}
                 className="w-full h-[48px] px-4 bg-[#1a1a2e] border border-[#303030] rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#3262FF]"
@@ -162,8 +160,8 @@ const BasicInfoForm: React.FC<BasicInfoFormProps> = ({ onNext, onBack }) => {
 
           {/* Phone Number */}
           <div className="w-full">
-            <label htmlFor="phoneNumber" className="block text-[#E6E6E6] font-semibold text-sm mb-2">Phone Number <span className="text-red-500">*</span></label>
-            <div className="flex gap-4">
+            <label htmlFor="phoneNumber" className="block text-[#E6E6E6] font-semibold text-sm mb-2">Phone number <span className="text-red-500">*</span></label>
+            <div className="flex gap-2">
               <div className="w-24 relative"> {/* Fixed width for country code dropdown */}
                 <select
                   id="phoneCode"
@@ -197,10 +195,11 @@ const BasicInfoForm: React.FC<BasicInfoFormProps> = ({ onNext, onBack }) => {
           </div>
 
           {/* Country */}
+       
           <div className="w-full">
             <label htmlFor="country" className="block text-[#E6E6E6] font-semibold text-sm mb-2">Country <span className="text-red-500">*</span></label>
             <div className="relative">
-              <select
+               <select
                 id="country"
                 name="country"
                 value={formData.country}
@@ -209,12 +208,12 @@ const BasicInfoForm: React.FC<BasicInfoFormProps> = ({ onNext, onBack }) => {
                 required
               >
                 {countries.map(country => (
-                  <option key={country || 'select'} value={country} className="bg-[#05060F]">
-                    {country || 'Select your country'}
+                  <option key={country || 'select'} value={country} className="bg-[#1a1a2e] text-white text-sm">
+                    {country || 'Select your residing country'}
                   </option>
                 ))}
-              </select>
-            </div>
+              </select> 
+           </div>
             {formData.country === 'Other' && (
               <div className="mt-4">
                 <label htmlFor="otherCountry" className="block text-[#E6E6E6] font-semibold text-sm mb-2">Please specify country:</label>
@@ -224,16 +223,16 @@ const BasicInfoForm: React.FC<BasicInfoFormProps> = ({ onNext, onBack }) => {
                   name="otherCountry"
                   value={formData.otherCountry}
                   onChange={handleInputChange}
-                  placeholder="Enter country name"
+                  placeholder="Enter your residing country name"
                   className="w-full h-[48px] px-4 bg-[#1a1a2e] border border-[#303030] rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#3262FF]"
                   required
                 />
               </div>
-            )}
+            )} 
           </div>
 
           {/* City and State */}
-          <div className="flex flex-col sm:flex-row gap-8 w-full">
+          <div className="flex flex-col sm:flex-row gap-2 w-full">
             <div className="flex-1">
               <label htmlFor="city" className="block text-[#E6E6E6] font-semibold text-sm mb-2">City <span className="text-red-500">*</span></label>
               <input
@@ -272,7 +271,7 @@ const BasicInfoForm: React.FC<BasicInfoFormProps> = ({ onNext, onBack }) => {
                 name="linkedin"
                 value={formData.linkedin}
                 onChange={handleInputChange}
-                placeholder="Enter LinkedIn profile URL (e.g., https://linkedin.com/in/yourprofile)"
+                placeholder="Enter your LinkedIn profile URL "
                 className="w-full h-[48px] px-4 bg-[#1a1a2e] border border-[#303030] rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-[#3262FF]" // Adjusted padding
                 required
               />

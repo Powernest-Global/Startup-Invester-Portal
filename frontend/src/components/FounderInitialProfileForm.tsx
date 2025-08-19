@@ -298,9 +298,13 @@ const handleNext = (newData: Partial<typeof formData> = {}) => {
       break;
 
     case 'upload-document':
-      if (updatedFormData.pitchDeckFiles.length === 0) {
-        isValid = false;
-      }
+     
+       const hasPitchDeckFile = updatedFormData.pitchDeckFiles.length > 0;
+  const hasValidPitchDeckLink = updatedFormData.pitchDeckLink.trim() !== '' && !updatedFormData.pitchDeckLinkError;
+  
+  if (!hasPitchDeckFile && !hasValidPitchDeckLink) {
+    isValid = false;
+  }
       break;
 
     case 'add-team':
@@ -376,24 +380,25 @@ const handleInputChange = (
     setWebsiteUrlError('');
   }
 
+  
+
   // Validate Google Drive public link
-  if (name === 'pitchDeckLink' || name === 'otherDocLink') {
-    const isPublicDriveLink =
-      /^https:\/\/drive\.google\.com\/(file|open)\//.test(value) &&
-      !value.includes('usp=restricted') &&
-      !value.includes('authuser');
+if (name === 'pitchDeckLink' || name === 'otherDocLink') {
+  const isPublicDriveLink =
+    /^https:\/\/drive\.google\.com\/(file|open)\/.*(\?usp=sharing|&usp=sharing)/.test(value.trim());
 
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-      [`${name}Error`]:
-        !isPublicDriveLink && value.trim() !== ''
-          ? 'Please enter a valid public Google Drive link.'
-          : '',
-    }));
+  setFormData(prev => ({
+    ...prev,
+    [name]: value,
+    [`${name}Error`]:
+      !isPublicDriveLink && value.trim() !== ''
+        ? 'Please enter a valid *public* Google Drive link .'
+        : '',
+  }));
 
-    return;
-  }
+  return;
+}
+
 
   // Sector preference (checkbox group)
   if (type === 'checkbox') {
@@ -1051,7 +1056,11 @@ const [showOtherDocLinkInput, setShowOtherDocLinkInput] = useState(false);
           <span className="underline">Click to Upload</span> or{" "}
           <span
             className="underline cursor-pointer text-[#A9ADB1]"
-            onClick={() => setShowPitchDeckLinkInput(true)}
+            onClick={(e) =>{
+e.stopPropagation();
+            
+               setShowPitchDeckLinkInput(true);
+              }}
           >
             Add a link
           </span>
@@ -1118,7 +1127,10 @@ const [showOtherDocLinkInput, setShowOtherDocLinkInput] = useState(false);
           <span className="underline">Click to Upload</span> or{" "}
           <span
             className="underline cursor-pointer text-[#A9ADB1]"
-            onClick={() => setShowOtherDocLinkInput(true)}
+            onClick={(e) =>{
+              e.stopPropagation();
+              setShowOtherDocLinkInput(true);
+            }}
           >
             Add a link
           </span>

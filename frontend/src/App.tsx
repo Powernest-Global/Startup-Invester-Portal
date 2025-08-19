@@ -1,5 +1,3 @@
-
-
  import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 
@@ -7,8 +5,8 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import LoginForm from './components/LoginForm';
 import SignUpForm from './components/SignUpForm';
 import ForgotPasswordForm from './components/ForgotPasswordForm';
-import WelcomeBackPage from './components/WelcomeBackPage';
-import RoleSelectionForm from './components/RoleSelectionForm';
+// import WelcomeBackPage from './components/WelcomeBackPage';
+// import RoleSelectionForm from './components/RoleSelectionForm';
 import BasicInfoForm from './components/BasicInfoForm';
 import UserConfirmation from './components/Userconfirmation';
 import QuestionComponent from './components/QuestionComponent';
@@ -54,11 +52,17 @@ function AppContent() {
   const navigate = useNavigate();
 
   // --- State Transition Handlers ---
-  const handleLoginSuccess = (user: any) => {
-    setUserData(user);
-    setCurrentState('welcome-back');
-    navigate('/welcome-back');
-  };
+  // const handleLoginSuccess = (user: any) => {
+  //   setUserData(user);
+  //   setCurrentState('welcome-back');
+  //   navigate('/welcome-back');
+  // };
+    const handleLoginSuccess = (user: any) => {
+     setUserData(user);
+     setCurrentState('basic-info');
+    navigate('/basic-info');
+   };
+  
 
   const handleSignUp = () => {
     setCurrentState('signup');
@@ -75,9 +79,14 @@ function AppContent() {
     navigate('/');
   };
 
+  // const handleSignUpSuccess = () => {
+  //   setCurrentState('role-selection');
+  //   navigate('/role-selection');
+  // };
+
   const handleSignUpSuccess = () => {
-    setCurrentState('role-selection');
-    navigate('/role-selection');
+    setCurrentState('basic-info');
+    navigate('/basic-info');
   };
 
   const handleRoleSelectionComplete = () => {
@@ -219,20 +228,20 @@ function AppContent() {
             onBackToLogin={handleBackToLogin}
           />
         );
-      case 'role-selection':
-        return (
-          <RoleSelectionForm
-            onComplete={handleRoleSelectionComplete}
-            onBack={handleBackToLogin}
-          />
-        );
-      case 'welcome-back':
-        return (
-          <WelcomeBackPage
-            userData={userData}
-            onProceedToApp={handleProceedToApp}
-          />
-        );
+      // case 'role-selection':
+      //   return (
+      //     <RoleSelectionForm
+      //       onComplete={handleRoleSelectionComplete}
+      //       onBack={handleBackToLogin}
+      //     />
+      //   );
+      // case 'welcome-back':
+      //   return (
+      //     <WelcomeBackPage
+      //       userData={userData}
+      //       onProceedToApp={handleProceedToApp}
+      //     />
+      //   );
       case 'basic-info':
         return (
           <BasicInfoForm
@@ -353,8 +362,8 @@ export default function App() {
         <Route path="/" element={<AppContent />} />
         <Route path="/signup" element={<AppContent />} />
         <Route path="/forgot-password" element={<AppContent />} />
-        <Route path="/welcome-back" element={<AppContent />} />
-        <Route path="/role-selection" element={<AppContent />} />
+        {/* <Route path="/welcome-back" element={<AppContent />} /> */}
+        {/* <Route path="/role-selection" element={<AppContent />} /> */}
         <Route path="/basic-info" element={<AppContent />} />
         <Route path="/user-confirmation" element={<AppContent />} />
         <Route path="/founder-initial-profile" element={<AppContent />} />
