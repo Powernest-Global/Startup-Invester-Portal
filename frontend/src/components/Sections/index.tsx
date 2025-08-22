@@ -5,7 +5,9 @@ import JobHiring from './JobHiring';
 const index = () => {
   return (
     <>
-    <section className="p-4"
+    {/* <section className="p-4" */}
+    <section className="pr-4 pt-4 pb-4"
+
     style={{
     borderColor: 'var(--stroke-color)',
   }}>

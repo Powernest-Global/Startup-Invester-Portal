@@ -15,7 +15,7 @@ function ConnectNowCard() {
         className="w- h-16 mb-3"
       />
 
-      <p className="text-sm text-gray-300 px-2">
+      <p className="text-xs text-gray-300 px-2 ">
         Connect with our AI Agent to share about your startup
       </p>
 
@@ -23,7 +23,7 @@ function ConnectNowCard() {
       <div className="relative w-full mt-4">
         <div className="absolute inset-0 bg-blue-500 rounded-xl blur-md opacity-30 z-0"></div>
         <button
-          className="relative z-10 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-xl transition duration-200"
+          className="whitespace-nowrap relative z-10 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-xl transition duration-200"
         >
           Connect Now
         </button>

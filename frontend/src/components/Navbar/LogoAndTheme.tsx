@@ -28,7 +28,7 @@ const LogoAndTheme = ({ onToggleSidebar }: Props) => {
 
   return (
     <div
-      className="flex items-center justify-between h-16  w-64 border-r border-b px-4"
+      className="flex items-center justify-between h-16  w-42 border-r border-b px-4"
       style={{
         borderRight: '1px solid var(--stroke-color)',
         borderBottom: '1px solid var(--stroke-color)',
@@ -41,17 +41,17 @@ const LogoAndTheme = ({ onToggleSidebar }: Props) => {
         src={logo}
         alt="Logo"
         className="h-10 w-auto object-contain"
-        style={{ maxWidth: '160px' }} // Optional control
+        style={{ maxWidth: '120px' }} // Optional control
       />
 
 {/* Sidebar Toggle */}
-      <button
+      {/* <button
         onClick={onToggleSidebar}
         className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
         title="Toggle Sidebar"
-      >
+      > */}
           {/* <RiFlipHorizontalFill className="text-2xl text-white dark:text-white" /> */}
-      </button>
+      {/* </button> */}
       {/* Theme Toggle */}
       <button
         onClick={toggleTheme}

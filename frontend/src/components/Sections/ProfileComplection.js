@@ -4,8 +4,10 @@ import MyMatches from './MyMatches';
 
 const ProfileCompletion = ({ percentage = 50, stats = {} }) => {
   return (
-    <div className="w-full max-w-7xl mx-auto space-y-6">
-      {/* ✅ Top: Profile Completion Card (unchanged) */}
+     <div className="w-full max-w-7xl mx-auto space-y-6">
+     
+      
+      {/*  Top: Profile Completion Card (unchanged) */}
       <div className="p-[2px] bg-gradient-to-l from-[#5E638500] via-[#5E6385] to-[#5E638500] rounded-xl shadow-md">
         <div className="bg-[#0C0D17] dark:bg-gray-900 rounded-xl p-4">
           <div className="mb-2">
@@ -15,7 +17,7 @@ const ProfileCompletion = ({ percentage = 50, stats = {} }) => {
             >
              </p>
           </div>
-          <div className="flex justify-between items-center mb-2">
+          <div className="flex justify-between items-center mb-2 ">
             <span className="text-2xl font-large text-white">Fund Raised</span>
             <span className="text-sm font-md text-white">$25M / $100M</span>
           </div>
@@ -28,7 +30,7 @@ const ProfileCompletion = ({ percentage = 50, stats = {} }) => {
         </div>
       </div>
 
-      {/* ✅ Bottom: 3 Cards with Gradient Borders */}
+      {/*  Bottom: 3 Cards with Gradient Borders */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Card 1: Matching History */}
         <div className="p-[2px] bg-gradient-to-l from-[#5E6385] to-[#5E6385]/0 rounded-xl shadow-md">

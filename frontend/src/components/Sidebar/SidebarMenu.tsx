@@ -40,7 +40,7 @@ import ConnectNowCard from './ConnectNowCard';
    const navItems = activeTab === 'Founder' ? founderNavItems : investorNavItems;
 
   return (
-    <div className="w-64  text-white h-screen flex flex-col p-4 ml-2 shadow-xl"
+    <div className="w-48  text-white h-screen flex flex-col p-4 ml-2 shadow-xl"
      style={{
      
         borderRight: '1px solid var(--stroke-color)',
