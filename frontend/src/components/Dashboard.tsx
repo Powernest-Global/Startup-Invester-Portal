@@ -5,6 +5,9 @@ import Sidebar from './Sidebar/SidebarMenu';
 import Sections from './Sections/index';
 import BrowseStartups from './Sections/BrowseStartups';
 import DealRoom from './Sections/DealRoom';
+import Capital from './Sections/Capital';
+import Network from './Sections/Network';
+import Portfolio from './Sections/Portfolio';
 
 
 interface DashboardProps {
@@ -49,6 +52,12 @@ const Dashboard: React.FC<DashboardProps> = ({ userData }) => {
  {activeLink === 'Dashboard' && <Sections />}
 {activeLink === 'Browse Startups' && <BrowseStartups />}
 {activeLink === 'Deal Room' &&  <DealRoom />}
+{activeLink === 'Capital' &&  <Capital />}
+{activeLink === 'Network' &&  <Network />}
+{activeLink === 'Portfolio' &&  <Portfolio />}
+
+
+
 
 
 </div>

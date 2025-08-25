@@ -32,7 +32,7 @@ import ConnectNowCard from './ConnectNowCard';
     { name: 'Dashboard', icon: <MdDashboard size={20} /> },
     { name: 'Browse Startups', icon: <MdDashboard size={20} /> },
     { name: 'Deal Room', icon: <FaHandshake size={20} /> },
-    { name: 'Connect', icon: <MdDashboard size={20} /> },
+    { name: 'Network', icon: <MdDashboard size={20} /> },
     { name: 'Capital', icon: <MdOutlineWorkOutline size={20} /> },
     { name: 'Portfolio', icon: <MdOutlineInsights size={20} /> },
   ];
