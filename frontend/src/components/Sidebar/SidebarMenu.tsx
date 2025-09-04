@@ -19,11 +19,11 @@ import ConnectNowCard from './ConnectNowCard';
 
   const founderNavItems = [
     { name: 'Dashboard', icon: <MdDashboard size={20} /> },
-    { name: 'AI Agent', icon: <FaRobot size={20} /> },
-    { name: 'My Matches', icon: <FaHandshake size={20} /> },
-    { name: 'Manage Deck', icon: <FaFileAlt size={20} /> },
-    { name: 'Schedule Meeting', icon: <MdOutlineCalendarMonth size={20} /> },
-    { name: 'Job Hiring', icon: <MdOutlineWorkOutline size={20} /> },
+    {name: 'Fundraising', icon:<MdDashboard size={20}/>},
+    { name: 'Hiring', icon: <FaHandshake size={20} /> },
+    {name: 'Partnerships', icon:<MdDashboard size={20}/>},
+    {name: 'Network Map', icon: <MdOutlineWorkOutline size={20} />},
+    { name: 'Updates', icon: <MdOutlineInsights size={20} />},
     { name: 'Analytics', icon: <MdOutlineInsights size={20} /> },
   ];
 
