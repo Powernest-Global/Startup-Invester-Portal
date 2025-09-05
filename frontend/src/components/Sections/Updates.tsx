@@ -57,11 +57,12 @@ return(
             </div>
             {/* closed */}
     {/* cards 1 */}
-<div className="flex flex-col items-start p-2 gap-5 w-[310px] h-[360px] rounded-xl bg-[#05060f]"> 
+    <div className="flex flex-row gap-6 w-full mt-4">
+<div className="flex flex-col items-start p-2 gap-5 w-[310px] h-[365px] rounded-xl bg-[#05060f]"> 
   {/* First Major Block */}
   <h3 className='  font-semibold text-align-left text-[#e5e5e5] text-[18px]  leading-[12px] font-neulis'>Updates Templates</h3>
     <div className="flex flex-col items-start text-align-left gap-0 w-[290px] h-[300px] rounded-xl bg-[#05060f] ">
-    <div className="flex flex-row justify-between items-center w-[280px] h-[60px]  p-0 ">
+    <div className="flex flex-row justify-between items-center w-[280px] h-[90px]  p-1 ">
   <div className="flex flex-col">
     <h3 className=" text-[12px] leading-[15px] text-align-left text-[#E6E6E6] font-neulis">
   Monthly Investor Update
@@ -83,7 +84,7 @@ return(
     </p>
   </div>
 </div>
- <div className="flex flex-row justify-between items-center w-[290px] h-[60px]  p-0  leading-[7px]">
+ <div className="flex flex-row justify-between items-center w-[290px] h-[60px]  ">
 {/*  left buttons */}
 
   <div className="flex flex-col w-[130px]">
@@ -106,10 +107,10 @@ return(
     </button>
        </div>
 </div>
-<div className="flex flex-col items-start text-align-left gap-0 w-[290px] h-[300px] rounded-xl bg-[#05060f] ">
-<div className="flex flex-row justify-between items-center w-[290px] h-[60px]  p-0 ">
-  <div className="flex flex-col">
-    <h3 className=" text-[12px] leading-[15px] text-align-left text-[#E6E6E6] font-neulis">
+<div className="flex flex-col items-start text-align-left gap-1 w-[290px] h-[300px] rounded-xl bg-[#05060f] p-0 ">
+<div className="flex flex-row justify-between items-center w-[290px] h-[60px]   ">
+  <div className="flex flex-col ">
+    <h3 className=" text-[12px] leading-[15px] text-align-left text-[#E6E6E6]  font-neulis">
   Quarterly Board Update
     </h3>
     <p className="text-[#A9ADB1] text-[12px] leading-[23px] tracking-[0.0025em] font-normal font-neulis">
@@ -129,7 +130,7 @@ return(
     </p>
   </div>
 </div>
- <div className="flex flex-row justify-between items-center w-[290px] h-[60px]  p-0 ">
+ <div className="flex flex-row justify-between items-center w-[290px] h-[40px] ">
 {/*  left buttons */}
 
   <div className="flex flex-col w-[130px] ">
@@ -140,9 +141,7 @@ return(
         <FiEdit size={16}/>
       Edit
     </button>
-
-  </div>
-
+    </div>
   {/* Right Side: Buttons */}
   <div className="flex flex-col w-[130px]">
     <button
@@ -155,7 +154,7 @@ return(
      </div>
   </div>
 </div>
-<div className="flex flex-col items-start text-align-left gap-0 w-[290px] h-[300px] rounded-xl bg-[#05060f] ">
+<div className="flex flex-col items-start text-align-left gap-0 w-[290px] h-[300px] rounded-xl bg-[#05060f]  p-0">
 <div className="flex flex-row justify-between items-center w-[290px] h-[60px]  p-0 ">
   <div className="flex flex-col">
     <h3 className=" text-[12px] leading-[15px] text-align-left text-[#E6E6E6] font-neulis">
@@ -178,7 +177,7 @@ return(
     </p>
   </div>
 </div>
- <div className="flex flex-row justify-between items-center w-[290px] h-[60px]  p-0 ">
+ <div className="flex flex-row justify-between items-center w-[290px] h-[60px] ">
 {/*  left buttons */}
   <div className="flex flex-col w-[130px]">
      <button
@@ -200,10 +199,26 @@ return(
     </button>
        </div>
         </div>
+        </div>
+        </div>
+        </div>
          {/* closed */}  
+         {/* RIGHT: New  div */}
+  <div className="flex-1 h-[150px] bg-[#12131a] rounded-xl p-5 shadow-lg">
+    <h2 className="text-[#e5e5e5] text-lg font-semibold mb-2">AI Update Generator</h2>
+    <p className="text-[#a9adb1] text-sm">Generate Pofessional investor updates using CRM data.</p>
+    <div className="flex flex-col w-[200px] p-1">
+    <button
+      className="bg-[#3262ff] text-white text-sm font-small px-5 py-2  justify-center  gap-1 rounded-[12px] flex items-center whitespace-nowrap"
+      onClick={handleAddDeal}
+    >
+    Generate Monthly Update
+    </button>
+       </div>
   </div>
+  
  </div>
-    </div>
+    
   </div>
    );
 };

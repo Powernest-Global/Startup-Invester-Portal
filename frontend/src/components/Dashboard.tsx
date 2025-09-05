@@ -14,6 +14,7 @@ import Hiring from './Sections/Hiring';
 import Partnership from './Sections/Partnership';
 import NetworkMap from './Sections/NetworkMap';
 import Updates from './Sections/Updates';
+import AiAssistant from './Sections/AiAssistant';
 
 
 interface DashboardProps {
@@ -67,6 +68,7 @@ const Dashboard: React.FC<DashboardProps> = ({ userData }) => {
 {activeLink === 'Partnerships' && <Partnership/>}
 {activeLink === 'Network Map' && < NetworkMap />}
 {activeLink === 'Updates'  && <Updates />}
+{activeLink === 'AI Assistant' && <AiAssistant /> }
 
 
 </div>

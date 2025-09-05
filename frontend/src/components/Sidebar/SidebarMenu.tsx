@@ -24,7 +24,7 @@ import ConnectNowCard from './ConnectNowCard';
     {name: 'Partnerships', icon:<MdDashboard size={20}/>},
     {name: 'Network Map', icon: <MdOutlineWorkOutline size={20} />},
     { name: 'Updates', icon: <MdOutlineInsights size={20} />},
-    { name: 'Analytics', icon: <MdOutlineInsights size={20} /> },
+    { name: 'AI Assistant', icon: <MdOutlineInsights size={20} /> },
   ];
 
   // You can define investor-specific items if they differ
